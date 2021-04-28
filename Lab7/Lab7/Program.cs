@@ -70,14 +70,17 @@ namespace Lab7
                     {
                         Console.Write("Введите рациональное число: ");
                         string _ratio = Console.ReadLine();
+
                         while(!checkRat(_ratio))
                         {
                             Console.WriteLine("Неправильный тип числа. Повторите ввод: ");
                             _ratio = Console.ReadLine();
                         }
+
                         Rational ratt = new Rational(_ratio);
                         Console.Write("Выберите формат представления числа: ");
                         Console.WriteLine("\n0. Десятичная дробь\n1. Обыкновенная дробь\n2. \"Специальный\" формат :)\n3. Приведение к целочисленному типу");
+
                         string pick = Console.ReadLine();
                         checkPick(ref pick, 4);
                         ratt.chooseFormat(pick);
@@ -111,11 +114,14 @@ namespace Lab7
                         }
                         Rational second = new Rational(_ratio2);
                         Rational result = first + second;
+
                         Console.Write("Выберите формат представления числа: ");
                         Console.WriteLine("\n0. Десятичная дробь\n1. Обыкновенная дробь\n2. \"Специальный\" формат :)");
+
                         string pick = Console.ReadLine();
                         checkPick(ref pick, 3);
                         result.chooseFormat(pick);
+
                         Console.WriteLine("Результат сложения: ");
                         Console.WriteLine(result.ToString());
                         break;
@@ -139,12 +145,15 @@ namespace Lab7
                         }
                         Rational second = new Rational(_ratio2);
                         Rational result = first - second;
+
                         Console.Write("Выберите формат представления числа: ");
                         Console.WriteLine("\n0. Десятичная дробь\n1. Обыкновенная дробь\n2. \"Специальный\" формат :)");
+
                         string pick = Console.ReadLine();
                         checkPick(ref pick, 3);
                         result.chooseFormat(pick);
-                        Console.WriteLine("Результат вычетания: ");
+
+                        Console.WriteLine("Результат вычитания: ");
                         Console.WriteLine(result.ToString());
                         break;
                     }
@@ -167,11 +176,14 @@ namespace Lab7
                         }
                         Rational second = new Rational(_ratio2);
                         Rational result = first * second;
+
                         Console.Write("Выберите формат представления числа: ");
                         Console.WriteLine("\n0. Десятичная дробь\n1. Обыкновенная дробь\n2. \"Специальный\" формат (:))");
+
                         string pick = Console.ReadLine();
                         checkPick(ref pick, 3);
                         result.chooseFormat(pick);
+
                         Console.WriteLine("Результат умножения: ");
                         Console.WriteLine(result.ToString());
                         break;
@@ -195,11 +207,14 @@ namespace Lab7
                         }
                         Rational second = new Rational(_ratio2);
                         Rational result = first / second;
+
                         Console.Write("Выберите формат представления числа: ");
                         Console.WriteLine("\n0. Десятичная дробь\n1. Обыкновенная дробь\n2. \"Специальный\" формат (:))");
+
                         string pick = Console.ReadLine();
                         checkPick(ref pick, 3);
                         result.chooseFormat(pick);
+
                         Console.WriteLine("Результат деления: ");
                         Console.WriteLine(result.ToString());
                         break;

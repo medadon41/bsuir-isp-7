@@ -24,10 +24,12 @@ namespace Lab7
 
         public bool Equals(Rational other)
         {
+            Contract();
+            other.Contract();
             if (other.ToString() == null)
                 return false;
             
-            if (this.m == other.m)
+            if (this.m == other.m && this.n == other.m)
                 return true;
             
             return false;
@@ -270,7 +272,7 @@ namespace Lab7
 
         public static explicit operator double(Rational a)
         {
-            return (double)(a.n / a.m);
+            return (double) a.n / a.m;
         }
     }
 }

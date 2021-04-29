@@ -68,16 +68,29 @@ namespace Lab7
             {
                 case "0":
                     {
+                        string _ratio = null;
+                        Rational ratt = null;
                         Console.Write("Введите рациональное число: ");
-                        string _ratio = Console.ReadLine();
-
+                        while (_ratio == null)
+                        {
+                            try
+                            {
+                                _ratio = Console.ReadLine();
+                                ratt.defineFormat(_ratio);
+                            }
+                            catch (Exception)
+                            {
+                                Console.Write("Между первым числом и словом \"из\" не должно быть больше 2 слов. Повторите ввод: ");
+                                _ratio = null;
+                            }
+                        }
                         while(!checkRat(_ratio))
                         {
                             Console.WriteLine("Неправильный тип числа. Повторите ввод: ");
                             _ratio = Console.ReadLine();
                         }
-
-                        Rational ratt = new Rational(_ratio);
+                        
+                        ratt = new Rational(_ratio);
                         Console.Write("Выберите формат представления числа: ");
                         Console.WriteLine("\n0. Десятичная дробь\n1. Обыкновенная дробь\n2. \"Специальный\" формат :)\n3. Приведение к целочисленному типу");
 

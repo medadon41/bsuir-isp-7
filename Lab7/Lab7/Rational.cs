@@ -83,7 +83,7 @@ namespace Lab7
                     }
                     else
                     {
-                        throw new Exception("Между первым числом и словом \"из\" не должно быть больше 2 слов."); //хз зачем Exception добавил
+                        throw new Exception();
                     }
                     m = int.Parse(s_form[i + 1]);
                     return;

@@ -4,24 +4,6 @@ namespace Lab7
 {
     class Program
     {
-        static bool checkRat(string str)
-        {
-            string[] s_form = str.Split(' ');
-            for (int i = 0; i < s_form.Length; i++)
-            {
-                if (s_form[i] == "из")
-                    return true;
-            }
-                    for (int i = 0; i < str.Length; i++)
-            {
-                if (int.TryParse(str.Substring(i, 1), out int type) || str[i] == '.' || str[i] == ',' || str[i] == '/' || (str[i] == 'и' && str[i+1] == 'з'))
-                    continue;
-                else
-                    return false;
-            }
-            return true;
-        }
-
         static void checkPick(ref string str, int n)
         {
             bool isPicked = false;
@@ -69,27 +51,32 @@ namespace Lab7
                 case "0":
                     {
                         string _ratio = null;
-                        Rational ratt = null;
+                        Rational ratt;
                         Console.Write("Введите рациональное число: ");
                         while (_ratio == null)
                         {
                             try
                             {
                                 _ratio = Console.ReadLine();
-                                ratt.defineFormat(_ratio);
+                                ratt = new Rational(_ratio);
                             }
-                            catch (Exception)
+                            catch (StringException ex)
                             {
-                                Console.Write("Между первым числом и словом \"из\" не должно быть больше 2 слов. Повторите ввод: ");
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (EnterKeyException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (WordsException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
                                 _ratio = null;
                             }
                         }
-                        while(!checkRat(_ratio))
-                        {
-                            Console.WriteLine("Неправильный тип числа. Повторите ввод: ");
-                            _ratio = Console.ReadLine();
-                        }
-                        
+
                         ratt = new Rational(_ratio);
                         Console.Write("Выберите формат представления числа: ");
                         Console.WriteLine("\n0. Десятичная дробь\n1. Обыкновенная дробь\n2. \"Специальный\" формат :)\n3. Приведение к целочисленному типу");
@@ -110,22 +97,63 @@ namespace Lab7
                     }
                 case "1":
                     {
+                        string _ratio = null;
+                        Rational _ratio1;
                         Console.WriteLine("Введите первую дробь: ");
-                        string _ratio1 = Console.ReadLine();
-                        while (!checkRat(_ratio1))
+                        while (_ratio == null)
                         {
-                            Console.WriteLine("Неправильный тип числа. Повторите ввод: ");
-                            _ratio1 = Console.ReadLine();
+                            try
+                            {
+                                _ratio = Console.ReadLine();
+                                _ratio1 = new Rational(_ratio);
+                            }
+                            catch (StringException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (EnterKeyException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (WordsException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
                         }
-                        Rational first = new Rational(_ratio1);
+
+                        Rational first = new Rational(_ratio);
+
+                        _ratio = null;
+                        Rational _ratio2;
                         Console.WriteLine("Введите вторую дробь: ");
-                        string _ratio2 = Console.ReadLine();
-                        while (!checkRat(_ratio2))
+                        while (_ratio == null)
                         {
-                            Console.WriteLine("Неправильный тип числа. Повторите ввод: ");
-                            _ratio2 = Console.ReadLine();
+                            try
+                            {
+                                _ratio = Console.ReadLine();
+                                _ratio2 = new Rational(_ratio);
+                            }
+                            catch (StringException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (EnterKeyException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (WordsException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
                         }
-                        Rational second = new Rational(_ratio2);
+ 
+                        Rational second = new Rational(_ratio);
                         Rational result = first + second;
 
                         Console.Write("Выберите формат представления числа: ");
@@ -141,22 +169,63 @@ namespace Lab7
                     }
                 case "2":
                     {
+                        string _ratio = null;
+                        Rational _ratio1;
                         Console.WriteLine("Введите первую дробь: ");
-                        string _ratio1 = Console.ReadLine();
-                        while (!checkRat(_ratio1))
+                        while (_ratio == null)
                         {
-                            Console.WriteLine("Неправильный тип числа. Повторите ввод: ");
-                            _ratio1 = Console.ReadLine();
+                            try
+                            {
+                                _ratio = Console.ReadLine();
+                                _ratio1 = new Rational(_ratio);
+                            }
+                            catch (StringException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (EnterKeyException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (WordsException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
                         }
-                        Rational first = new Rational(_ratio1);
+
+                        Rational first = new Rational(_ratio);
+
+                        _ratio = null;
+                        Rational _ratio2;
                         Console.WriteLine("Введите вторую дробь: ");
-                        string _ratio2 = Console.ReadLine();
-                        while (!checkRat(_ratio2))
+                        while (_ratio == null)
                         {
-                            Console.WriteLine("Неправильный тип числа. Повторите ввод: ");
-                            _ratio2 = Console.ReadLine();
+                            try
+                            {
+                                _ratio = Console.ReadLine();
+                                _ratio2 = new Rational(_ratio);
+                            }
+                            catch (StringException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (EnterKeyException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (WordsException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
                         }
-                        Rational second = new Rational(_ratio2);
+
+                        Rational second = new Rational(_ratio);
                         Rational result = first - second;
 
                         Console.Write("Выберите формат представления числа: ");
@@ -172,22 +241,63 @@ namespace Lab7
                     }
                 case "3":
                     {
+                        string _ratio = null;
+                        Rational _ratio1;
                         Console.WriteLine("Введите первую дробь: ");
-                        string _ratio1 = Console.ReadLine();
-                        while (!checkRat(_ratio1))
+                        while (_ratio == null)
                         {
-                            Console.WriteLine("Неправильный тип числа. Повторите ввод: ");
-                            _ratio1 = Console.ReadLine();
+                            try
+                            {
+                                _ratio = Console.ReadLine();
+                                _ratio1 = new Rational(_ratio);
+                            }
+                            catch (StringException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (EnterKeyException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (WordsException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
                         }
-                        Rational first = new Rational(_ratio1);
+
+                        Rational first = new Rational(_ratio);
+
+                        _ratio = null;
+                        Rational _ratio2;
                         Console.WriteLine("Введите вторую дробь: ");
-                        string _ratio2 = Console.ReadLine();
-                        while (!checkRat(_ratio2))
+                        while (_ratio == null)
                         {
-                            Console.WriteLine("Неправильный тип числа. Повторите ввод: ");
-                            _ratio2 = Console.ReadLine();
+                            try
+                            {
+                                _ratio = Console.ReadLine();
+                                _ratio2 = new Rational(_ratio);
+                            }
+                            catch (StringException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (EnterKeyException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (WordsException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
                         }
-                        Rational second = new Rational(_ratio2);
+
+                        Rational second = new Rational(_ratio);
                         Rational result = first * second;
 
                         Console.Write("Выберите формат представления числа: ");
@@ -203,22 +313,63 @@ namespace Lab7
                     }
                 case "4":
                     {
+                        string _ratio = null;
+                        Rational _ratio1;
                         Console.WriteLine("Введите первую дробь: ");
-                        string _ratio1 = Console.ReadLine();
-                        while (!checkRat(_ratio1))
+                        while (_ratio == null)
                         {
-                            Console.WriteLine("Неправильный тип числа. Повторите ввод: ");
-                            _ratio1 = Console.ReadLine();
+                            try
+                            {
+                                _ratio = Console.ReadLine();
+                                _ratio1 = new Rational(_ratio);
+                            }
+                            catch (StringException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (EnterKeyException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (WordsException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
                         }
-                        Rational first = new Rational(_ratio1);
+
+                        Rational first = new Rational(_ratio);
+
+                        _ratio = null;
+                        Rational _ratio2;
                         Console.WriteLine("Введите вторую дробь: ");
-                        string _ratio2 = Console.ReadLine();
-                        while (!checkRat(_ratio2))
+                        while (_ratio == null)
                         {
-                            Console.WriteLine("Неправильный тип числа. Повторите ввод: ");
-                            _ratio2 = Console.ReadLine();
+                            try
+                            {
+                                _ratio = Console.ReadLine();
+                                _ratio2 = new Rational(_ratio);
+                            }
+                            catch (StringException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (EnterKeyException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (WordsException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
                         }
-                        Rational second = new Rational(_ratio2);
+
+                        Rational second = new Rational(_ratio);
                         Rational result = first / second;
 
                         Console.Write("Выберите формат представления числа: ");
@@ -234,23 +385,65 @@ namespace Lab7
                     }
                 case "5":
                     {
+                        string _ratio = null;
+                        Rational _ratio1;
                         Console.WriteLine("Введите первую дробь: ");
-                        string _ratio1 = Console.ReadLine();
-                        while (!checkRat(_ratio1))
+                        while (_ratio == null)
                         {
-                            Console.WriteLine("Неправильный тип числа. Повторите ввод: ");
-                            _ratio1 = Console.ReadLine();
+                            try
+                            {
+                                _ratio = Console.ReadLine();
+                                _ratio1 = new Rational(_ratio);
+                            }
+                            catch (StringException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (EnterKeyException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (WordsException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
                         }
-                        Rational first = new Rational(_ratio1);
+
+                        Rational first = new Rational(_ratio);
+
+                        _ratio = null;
+                        Rational _ratio2;
                         Console.WriteLine("Введите вторую дробь: ");
-                        string _ratio2 = Console.ReadLine();
-                        while (!checkRat(_ratio2))
+                        while (_ratio == null)
                         {
-                            Console.WriteLine("Неправильный тип числа. Повторите ввод: ");
-                            _ratio2 = Console.ReadLine();
+                            try
+                            {
+                                _ratio = Console.ReadLine();
+                                _ratio2 = new Rational(_ratio);
+                            }
+                            catch (StringException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (EnterKeyException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
+                            catch (WordsException ex)
+                            {
+                                Console.Write($"{ex.Message} Повторите ввод: ");
+                                _ratio = null;
+                            }
                         }
-                        Rational second = new Rational(_ratio2);
+
+                        Rational second = new Rational(_ratio);
                         Console.WriteLine("Результат: ");
+
                         if (first == second)
                         {
                             Console.WriteLine($"{first.ToString()} = {second.ToString()}");

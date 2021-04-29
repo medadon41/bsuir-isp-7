@@ -4,11 +4,30 @@ using System.Text;
 
 namespace Lab7
 {
+    class WordsException : Exception
+    {
+        public WordsException(string message) : base(message)
+        {
+        }
+    }
+
+    class StringException : Exception
+    {
+        public StringException(string message) : base(message)
+        {
+        }
+    }
+    class EnterKeyException : Exception
+    {
+        public EnterKeyException(string message) : base(message)
+        {
+        }
+    }
     class Rational : IComparable, IEquatable<Rational>
     {
         public int n;
         public int m;
-        private string finalResult { get; set; }
+        public string finalResult { get; set; }
 
         public Rational(string num)
         {
@@ -22,14 +41,14 @@ namespace Lab7
             finalResult = $"{n}/{m}";
         }
 
+        public Rational() { }
+
         public bool Equals(Rational other)
         {
-            Contract();
+            this.Contract();
             other.Contract();
-            if (other.ToString() == null)
-                return false;
-            
-            if (this.m == other.m && this.n == other.m)
+
+            if (m == other.m && n == other.m)
                 return true;
             
             return false;
@@ -48,6 +67,10 @@ namespace Lab7
         }
         public void defineFormat(string num) //определение формата по введенной строке
         {
+            if (String.IsNullOrWhiteSpace(num))
+            {
+                throw new EnterKeyException("Была нажата клавиша Enter.");
+            }
             int format = 2;  //по дефолту стоит 2 - для целочисленного типа
             for(int i = 0; i < num.Length; i++)
             {
@@ -60,6 +83,9 @@ namespace Lab7
                 {
                     format = 1;
                     break;
+                } else if (!int.TryParse(num, out int type))
+                {
+                    format = 3;
                 }
             }
 
@@ -69,25 +95,33 @@ namespace Lab7
             {
                 if(s_form[i] == "из")
                 {
-                    if(int.TryParse(s_form[i-1], out int type))
+                    int type;
+                    if(int.TryParse(s_form[i-1], out type))
                     {
+                        Console.WriteLine(num);
                         n = int.Parse(s_form[i - 1]);
                     } 
-                    else if (int.TryParse(s_form[i-2], out int type2))
+                    else if (int.TryParse(s_form[i-2], out type))
                     {
                         n = int.Parse(s_form[i - 2]);
                     }
-                    else if (int.TryParse(s_form[i - 3], out int type3))
+                    else if (int.TryParse(s_form[i - 3], out type))
                     {
                         n = int.Parse(s_form[i - 3]);
                     }
-                    else
+                    else 
                     {
-                        throw new Exception();
+                        
+                        throw new WordsException("Между первым числом и словом \"из\" не должно быть больше 2 слов.");
                     }
                     m = int.Parse(s_form[i + 1]);
                     return;
-                }
+                } 
+            }
+
+            if(format == 3)
+            {
+                throw new StringException("Неверный формат строки. Для ввода в специальном формате требуется слово \"из\".");
             }
 
             //далее идет разбивка (если строка с точкой(запятой) или со знаком деления)
@@ -158,8 +192,8 @@ namespace Lab7
             {
                 if (n % i == 0 && m % i == 0)
                 {
-                    n = n / i;
-                    m = m / i;
+                    n /= i;
+                    m /= i;
                 }
             }
         }

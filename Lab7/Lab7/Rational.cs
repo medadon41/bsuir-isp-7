@@ -45,10 +45,14 @@ namespace Lab7
 
         public bool Equals(Rational other)
         {
+            int commondem = ComDen(this.m, other.m, other);
+            int multiply1 = commondem / this.m;
+            int multiply2 = commondem / other.m;
+
             this.Contract();
             other.Contract();
 
-            if (m == other.m && n == other.m)
+            if (this.n * multiply1 == other.n * multiply2)
                 return true;
             
             return false;
@@ -56,15 +60,40 @@ namespace Lab7
 
         public int CompareTo(object obj)
         {
+            Rational other = obj as Rational;
+
+            other.Contract();
             this.Contract();
+
+            int commondem = ComDen(this.m, other.m, other);
+            int multiply1 = commondem / this.m;
+            int multiply2 = commondem / other.m;
+
+
             if (obj == null) return 1;
 
-            Rational other = obj as Rational;
             if (other.ToString() != null)
-                return (this.n * other.m).CompareTo(other.n * this.m);
+                return (this.n * multiply1).CompareTo(other.n * multiply2);
             else
                 return 2;
         }
+
+        private int ComDen(int a, int b, Rational r)
+        {
+            while (a != b)
+            {
+                if (a > b)
+                {
+                    a -= b;
+                }
+                else
+                {
+                    b -= a;
+                }
+            }
+            return Math.Abs(m * r.m) / a;
+        }
+
         public void defineFormat(string num) //определение формата по введенной строке
         {
             if (String.IsNullOrWhiteSpace(num))
@@ -174,6 +203,7 @@ namespace Lab7
                m = 1;
             }
         }
+
         public int chooseFormat(string pick)
         {
             Contract();
@@ -188,15 +218,26 @@ namespace Lab7
 
         public void Contract()
         {
-            for (int i = 2; i < 10; i++)
+            bool keep = true;
+            while (keep)
             {
-                if (n % i == 0 && m % i == 0)
+                int k = 0;
+                for (int i = 2; i <= 10; i++)
                 {
-                    n /= i;
-                    m /= i;
+                    if (n % i == 0 && m % i == 0)
+                    {
+                        n /= i;
+                        m /= i;
+                        k = 1;
+                    } 
+                }
+                if (k == 0)
+                {
+                    keep = false;
                 }
             }
         }
+
         public override string ToString()
         {
             return finalResult;
@@ -204,35 +245,49 @@ namespace Lab7
 
         public static Rational operator +(Rational a, Rational b)
         {
-            if(a.m == b.m)
+            a.Contract();
+            b.Contract();
+            int commondem = a.ComDen(a.m, b.m, b);
+            int multiply1 = commondem / a.m;
+            int multiply2 = commondem / b.m;
+
+            if (a.m == b.m)
             {
                 return new Rational(a.n + b.n, a.m);
             } 
             else
             {
-                return new Rational((a.n * b.m) + (a.m * b.n), a.m * b.m);
+                return new Rational((a.n * multiply1) + (b.n * multiply2), commondem);
             }
         }
 
         public static Rational operator -(Rational a, Rational b)
         {
+            int commondem = a.ComDen(a.m, b.m, b);
+            int multiply1 = commondem / a.m;
+            int multiply2 = commondem / b.m;
+
             if (a.m == b.m)
             {
                 return new Rational(a.n - b.n, a.m);
             }
             else
             {
-                return new Rational((a.n * b.m) - (a.m * b.n), a.m * b.m);
+                return new Rational((a.n * multiply1) - (b.n * multiply2), commondem);
             }
         }
 
         public static Rational operator *(Rational a, Rational b)
         {
+            a.Contract();
+            b.Contract();
             return new Rational(a.n * b.n, a.m * b.m);
         }
 
         public static Rational operator /(Rational a, Rational b)
         {
+            a.Contract();
+            b.Contract();
             return new Rational(a.n * b.m, a.m * b.n);
         }
 
@@ -248,6 +303,8 @@ namespace Lab7
 
         public static bool operator >(Rational a, Rational b)
         {
+            a.Contract();
+            b.Contract();
             int _t = a.CompareTo(b);
             if (_t == 1)
             {
@@ -261,6 +318,8 @@ namespace Lab7
 
         public static bool operator <(Rational a, Rational b)
         {
+            a.Contract();
+            b.Contract();
             int _t = a.CompareTo(b);
             if (_t == -1)
             {
@@ -272,11 +331,15 @@ namespace Lab7
         }
         public static bool operator ==(Rational a, Rational b)
         {
+            a.Contract();
+            b.Contract();
             return a.Equals(b);
         }
 
         public static bool operator !=(Rational a, Rational b)
         {
+            a.Contract();
+            b.Contract();
             return !a.Equals(b);
         }
 

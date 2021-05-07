@@ -65,15 +65,21 @@ namespace Lab7
             other.Contract();
             this.Contract();
 
-            int commondem = ComDen(this.m, other.m, other);
-            int multiply1 = commondem / this.m;
-            int multiply2 = commondem / other.m;
 
+            if (this.m == other.m)
+            {
+                return (this.n).CompareTo(other.n);
+            }
+            else if (this.m != other.m)
+            {
 
-            if (obj == null) return 1;
-
-            if (other.ToString() != null)
+                int commondem = ComDen(this.m, other.m, other);
+                int multiply1 = commondem / this.m;
+                int multiply2 = commondem / other.m;
                 return (this.n * multiply1).CompareTo(other.n * multiply2);
+
+            }
+            if (obj == null) return 1;
             else
                 return 2;
         }

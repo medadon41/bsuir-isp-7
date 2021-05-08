@@ -86,6 +86,7 @@ namespace Lab7
 
         private int ComDen(int a, int b, Rational r)
         {
+
             while (a != b)
             {
                 if (a > b)
@@ -225,23 +226,21 @@ namespace Lab7
         public void Contract()
         {
             bool keep = true;
-            while (keep)
+            int a = n;
+            int b = m;
+            while (a != b)
             {
-                int k = 0;
-                for (int i = 2; i <= 10; i++)
+                if (a > b)
                 {
-                    if (n % i == 0 && m % i == 0)
-                    {
-                        n /= i;
-                        m /= i;
-                        k = 1;
-                    } 
+                    a -= b;
                 }
-                if (k == 0)
+                else
                 {
-                    keep = false;
+                    b -= a;
                 }
             }
+            n /= a;
+            m /= b;
         }
 
         public override string ToString()

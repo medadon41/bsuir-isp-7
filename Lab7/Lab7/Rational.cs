@@ -225,7 +225,6 @@ namespace Lab7
 
         public void Contract()
         {
-            bool keep = true;
             int a = n;
             int b = m;
             while (a != b)
